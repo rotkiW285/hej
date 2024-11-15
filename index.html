@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Witamy z losowej miejscowości w Polsce">
+    <meta property="og:title" content="Cześć">
+    <meta property="og:description" content="Witamy z losowej miejscowości w Polsce">
+    <meta name="keywords" content="miejscowość, Polska, losowa, witamy">
+    <title>Losowa Miejscowość</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Witamy z losowej miejscowości w Polsce</h1>
+    <p id="response"></p>
+    <button id="fetchButton">Pobierz miejscowość</button>
+
+    <script>
+        async function fetchMiejscowosc() {
+            try {
+                const response = await fetch("miejscowosci.json");
+                const miejscowosci = await response.json();
+
+                if (!miejscowosci || miejscowosci.length === 0) {
+                    document.getElementById('response').innerText = "Nie znaleziono żadnych miejscowości w bazie danych.";
+                    return;
+                }
+
+                const randomMiejscowosc = miejscowosci[Math.floor(Math.random() * miejscowosci.length)];
+                document.getElementById('response').innerText = `Cześć ${randomMiejscowosc}`;
+            } catch (error) {
+                console.error("Błąd podczas pobierania miejscowości:", error);
+                document.getElementById('response').innerText = "Wystąpił problem z odczytywaniem miejscowości :(";
+            }
+        }
+
+        document.getElementById('fetchButton').addEventListener('click', fetchMiejscowosc);
+
+        window.onload = fetchMiejscowosc;
+    </script>
+</body>
+</html>

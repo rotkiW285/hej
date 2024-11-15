@@ -12,7 +12,7 @@ async function fetchMiejscowosc() {
         if (randomMiejscowosc.toLowerCase() === "legnica") {
             document.getElementById('response').innerText = "Pa Legnica!";
         } else {
-            document.getElementById('response').innerText = `Cześć ${randomMiejscowosc}`;
+            document.getElementById('response').innerText = `Hej ${randomMiejscowosc}`;
         }
     } catch (error) {
         console.error("Błąd podczas pobierania miejscowości:", error);
@@ -23,3 +23,8 @@ async function fetchMiejscowosc() {
 document.getElementById('fetchButton').addEventListener('click', fetchMiejscowosc);
 
 window.onload = fetchMiejscowosc;
+
+document.getElementById('copyButton').addEventListener('click', () => {
+    const responseText = document.getElementById('response').innerText;
+    navigator.clipboard.writeText(responseText);
+});
